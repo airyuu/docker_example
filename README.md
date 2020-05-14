@@ -1,6 +1,8 @@
-The project are going to give an example to start a Node.JS application with MongoDB, Redis, RabbitMQ by docker-compose in MacOS environment.
+# Docker Example
 
-### Prerequest
+The project are going to give an example to start a Node.JS application with MongoDB, Redis, RabbitMQ by docker-compose.
+
+### Links
 
 1.  [MongoDB](http://www.mongodb.com) (v3.6)
 2.  [Redis](http://redis.io) (v2.8)
