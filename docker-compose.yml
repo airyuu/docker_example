@@ -1,0 +1,47 @@
+version: '2.2'
+services:
+  rest-api:
+    container_name: rest-api
+    restart: always
+    build:
+      context: .
+    volumes:
+      - $HOME/august-runtime-creds:/root/august-runtime-creds
+    environment:
+      - NODE_ENV=local
+      - APIKEYFILE=/root/august-runtime-creds/apicreds.json
+    ports:
+      - "3030:3030"
+    links:
+      - redis
+      - mongo
+      - rabbitmq
+    networks:
+      - netapi_net
+  redis:
+    container_name: redis
+    image: "redis:2.8"
+    ports:
+      - "6379:6379"
+    networks:
+      - netapi_net
+  mongo:
+    container_name: mongo
+    image: "mongo:3.6"
+    volumes:
+      - $HOME/data/db:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - netapi_net
+  rabbitmq:
+    container_name: rabbitmq
+    image: "rabbitmq:3.6.5"
+    command: sh -c "rabbitmq-plugins enable rabbitmq_management; rabbitmq-server"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - netapi_net
+networks:
+  netapi_net:
